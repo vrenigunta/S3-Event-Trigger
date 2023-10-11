@@ -13,19 +13,12 @@ def lambda_handler(event, context):
     sns_client = boto3.client('sns')
     topic_arn = 'arn:aws:sns:us-east-1:<account-id>:s3-lambda-sns'
     sns_client.publish(
-       TopicArn=sns_arn,
+       TopicArn=topic_arn,
        Subject='S3 Object Created',
        Message=f"File '{object_key}' was uploaded to bucket '{bucket_name}'"
     )
 
-    # Example: Trigger another Lambda function
-    # lambda_client = boto3.client('lambda')
-    # target_function_name = 'my-another-lambda-function'
-    # lambda_client.invoke(
-    #    FunctionName=target_function_name,
-    #    InvocationType='Event',
-    #    Payload=json.dumps({'bucket_name': bucket_name, 'object_key': object_key})
-    # )
+   
 
     return {
         'statusCode': 200,
